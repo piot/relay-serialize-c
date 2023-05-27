@@ -1,0 +1,76 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Peter Bjorklund. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+#include <clog/clog.h>
+#include <relay-serialize/debug.h>
+#include <relay-serialize/serialize.h>
+#include <flood/in_stream.h>
+#include <flood/out_stream.h>
+
+void relaySerializeWriteCommand(struct FldOutStream* outStream, uint8_t cmd, const char* prefix)
+{
+    // CLOG_VERBOSE("%s: cmd: %s", prefix, relaySerializeCmdToString(cmd));
+    fldOutStreamWriteUInt8(outStream, cmd);
+}
+
+void relaySerializeWriteUserSessionId(struct FldOutStream* stream, RelaySerializeUserSessionId userSessionId)
+{
+    if (userSessionId == 0) {
+        CLOG_ERROR("userSessionId zero is reserved");
+    }
+    fldOutStreamWriteMarker(stream, 0x86);
+    fldOutStreamWriteUInt64(stream, userSessionId);
+}
+
+int relaySerializeReadUserSessionId(struct FldInStream* stream, RelaySerializeUserSessionId* userSessionId)
+{
+    fldInStreamCheckMarker(stream, 0x86);
+    return fldInStreamReadUInt64(stream, userSessionId);
+}
+
+void relaySerializeWriteClientNonce(struct FldOutStream* stream, RelaySerializeClientNonce clientNonce)
+{
+    fldOutStreamWriteMarker(stream, 0x87);
+    fldOutStreamWriteUInt64(stream, clientNonce);
+}
+
+int relaySerializeReadClientNonce(struct FldInStream* stream, RelaySerializeClientNonce* clientNonce)
+{
+    fldInStreamCheckMarker(stream, 0x87);
+    return fldInStreamReadUInt64(stream, clientNonce);
+}
+
+void relaySerializeWriteServerChallenge(struct FldOutStream* stream, RelaySerializeServerChallenge serverChallenge)
+{
+    fldOutStreamWriteMarker(stream, 0x88);
+    fldOutStreamWriteUInt64(stream, serverChallenge);
+}
+
+int relaySerializeReadServerChallenge(struct FldInStream* stream, RelaySerializeServerChallenge* serverChallenge)
+{
+    fldInStreamCheckMarker(stream, 0x88);
+    return fldInStreamReadUInt64(stream, serverChallenge);
+}
+
+int relaySerializeWriteString(FldOutStream* stream, const char* s)
+{
+    size_t len = tc_strlen(s);
+    fldOutStreamWriteUInt8(stream, len);
+    return fldOutStreamWriteOctets(stream, (const uint8_t*) s, len);
+}
+
+int relaySerializeReadString(struct FldInStream* stream, char* buf, size_t maxLength)
+{
+    uint8_t stringLength;
+    fldInStreamReadUInt8(stream, &stringLength);
+    if (stringLength + 1 > maxLength) {
+        return -1;
+    }
+    int errorCode = fldInStreamReadOctets(stream, (uint8_t*) buf, stringLength);
+    if (errorCode < 0) {
+        return errorCode;
+    }
+    buf[stringLength] = 0;
+    return stringLength;
+}
