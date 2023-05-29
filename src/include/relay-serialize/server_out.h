@@ -12,10 +12,22 @@
 struct FldOutStream;
 
 int relaySerializeServerOutChallenge(struct FldOutStream* outStream, RelaySerializeClientNonce forClient,
-                                   RelaySerializeServerChallenge challenge);
+                                     RelaySerializeServerChallenge challenge);
 int relaySerializeServerOutLogin(struct FldOutStream* outStream, RelaySerializeClientNonce forClient,
-                               RelaySerializeUserSessionId userSession);
+                                 RelaySerializeUserSessionId userSession);
 
 int relaySerializeServerOutPacketHeader(struct FldOutStream* outStream);
+
+int relaySerializeServerOutConnectRequestToListener(struct FldOutStream* outStream,
+                                                    RelaySerializeConnectRequestFromServerToListener data);
+
+int relaySerializeServerOutPacketToClientHeader(struct FldOutStream* outStream,
+                                                RelaySerializeServerPacketFromServerToClient data);
+
+int relaySerializeServerOutListenResponseToListener(struct FldOutStream* outStream,
+                                                    RelaySerializeListenResponseFromServerToListener data);
+
+int relaySerializeServerOutConnectResponseToInitiator(struct FldOutStream* outStream,
+                                                      RelaySerializeConnectResponseFromServerToClient data);
 
 #endif

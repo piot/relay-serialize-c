@@ -18,6 +18,24 @@ void relaySerializeWriteCommand(struct FldOutStream* outStream, uint8_t cmd, con
 void relaySerializeWriteUserSessionId(struct FldOutStream* outStream, RelaySerializeUserSessionId userSessionId);
 int relaySerializeReadUserSessionId(struct FldInStream* stream, RelaySerializeUserSessionId* userSessionId);
 
+void relaySerializeWriteUserId(struct FldOutStream* outStream, RelaySerializeUserId userId);
+int relaySerializeReadUserId(struct FldInStream* stream, RelaySerializeUserId* userId);
+
+void relaySerializeWriteConnectionId(struct FldOutStream* stream, RelaySerializeConnectionId connectionId);
+int relaySerializeReadConnectionId(struct FldInStream* stream, RelaySerializeConnectionId* connectionId);
+
+void relaySerializeWriteListenerId(struct FldOutStream* stream, RelaySerializeListenerId listenerId);
+int relaySerializeReadListenerId(struct FldInStream* stream, RelaySerializeListenerId* listenerId);
+
+void relaySerializeWriteApplicationId(struct FldOutStream* stream, RelaySerializeApplicationId applicationId);
+int relaySerializeReadApplicationId(struct FldInStream* stream, RelaySerializeApplicationId* applicationId);
+
+void relaySerializeWriteChannelId(struct FldOutStream* stream, RelaySerializeChannelId channelId);
+int relaySerializeReadChannelId(struct FldInStream* stream, RelaySerializeChannelId* channelId);
+
+void relaySerializeWriteRequestId(struct FldOutStream* stream, RelaySerializeRequestId requestId);
+int relaySerializeReadRequestId(struct FldInStream* stream, RelaySerializeRequestId* requestId);
+
 void relaySerializeWriteClientNonce(struct FldOutStream* outStream, RelaySerializeClientNonce clientNonce);
 int relaySerializeReadClientNonce(struct FldInStream* stream, RelaySerializeClientNonce* clientNonce);
 

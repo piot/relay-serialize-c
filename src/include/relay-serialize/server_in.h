@@ -13,8 +13,17 @@
 struct FldInStream;
 
 int relaySerializeServerInLogin(struct FldInStream* inStream, RelaySerializeClientNonce* clientNonce,
-                              RelaySerializeServerChallenge* serverChallenge, char* target, size_t maxTarget);
+                                RelaySerializeServerChallenge* serverChallenge, char* target, size_t maxTarget);
 
 int relaySerializeServerInChallenge(struct FldInStream* inStream, RelaySerializeClientNonce* clientNonce);
+
+int relaySerializeServerInRequestConnect(struct FldInStream* inStream,
+                                         RelaySerializeConnectRequestFromClientToServer* request);
+
+int relaySerializeServerInRequestListen(struct FldInStream* inStream,
+                                         RelaySerializeListenRequestFromClientToServer* request);
+
+int relaySerializeServerInRequestAccept(struct FldInStream* inStream,
+                                        RelaySerializeListenRequestFromClientToServer* request);
 
 #endif

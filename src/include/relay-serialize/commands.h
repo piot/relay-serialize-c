@@ -14,11 +14,16 @@
 
 #define relaySerializeCmdLogin (0x02)
 #define relaySerializeCmdPacket (0x05)
+#define relaySerializeCmdConnectRequestToServer (0x06)
+#define relaySerializeCmdListenRequestToServer (0x07)
 #define relaySerializeCmdChallenge (0x0A)
 
 // Responses
 #define relaySerializeCmdLoginResponse (0x22)
 #define relaySerializeCmdPacketToClient (0x24)
+#define relaySerializeCmdConnectionRequestToClient (0x25)
+#define relaySerializeCmdListenResponseToClient (0x26)
+#define relaySerializeCmdConnectResponseToClient (0x27)
 #define relaySerializeCmdChallengeResponse (0x2A)
 
 #endif

@@ -7,23 +7,21 @@
 #include <relay-serialize/debug.h>
 #include <stdio.h>
 
-const char *relaySerializeCmdToString(uint8_t t)
+const char* relaySerializeCmdToString(uint8_t t)
 {
-    switch (t)
-    {
-    case relaySerializeCmdLogin:
-        return "Login";
-    case relaySerializeCmdPacket:
-        return "Packet";
-    case relaySerializeCmdLoginResponse:
-        return "LoginResponse";
-    case relaySerializeCmdPacketToClient:
-        return "PacketToClient";
-    default:
-    {
-        static char buf[128];
-        tc_snprintf(buf, 128, "no idea %02X", t);
-        return buf;
-    }
+    switch (t) {
+        case relaySerializeCmdLogin:
+            return "Login";
+        case relaySerializeCmdPacket:
+            return "Packet";
+        case relaySerializeCmdLoginResponse:
+            return "LoginResponse";
+        case relaySerializeCmdPacketToClient:
+            return "PacketToClient";
+        default: {
+            static char buf[128];
+            tc_snprintf(buf, 128, "no idea %02X", t);
+            return buf;
+        }
     }
 }

@@ -17,4 +17,11 @@ int relaySerializeClientInChallenge(struct FldInStream* inStream, RelaySerialize
 int relaySerializeClientInLogin(struct FldInStream* inStream, RelaySerializeClientNonce* clientNonce,
                               RelaySerializeUserSessionId* userSessionId);
 
+
+int relaySerializeClientInConnectRequestToListener(struct FldInStream* inStream,
+                                                      RelaySerializeConnectRequestFromServerToListener* data);
+
+int relaySerializeClientInPacketFromServer(struct FldInStream* inStream,
+                                                      RelaySerializeServerPacketFromServerToClient* data);
+
 #endif
