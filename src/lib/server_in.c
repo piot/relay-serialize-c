@@ -6,26 +6,11 @@
 #include <relay-serialize/serialize.h>
 #include <relay-serialize/server_in.h>
 
-int relaySerializeServerInLogin(FldInStream* inStream, RelaySerializeClientNonce* clientNonce,
-                                RelaySerializeServerChallenge* serverChallenge, char* target, size_t maxTarget)
-{
-    relaySerializeReadClientNonce(inStream, clientNonce);
-    relaySerializeReadServerChallenge(inStream, serverChallenge);
-    relaySerializeReadString(inStream, target, maxTarget);
-
-    return 0;
-}
-
-int relaySerializeServerInChallenge(FldInStream* inStream, RelaySerializeClientNonce* clientNonce)
-{
-    return relaySerializeReadClientNonce(inStream, clientNonce);
-}
-
 int relaySerializeServerInRequestConnect(struct FldInStream* inStream,
                                          RelaySerializeConnectRequestFromClientToServer* request)
 {
     relaySerializeReadApplicationId(inStream, &request->appId);
-    relaySerializeReadUserId(inStream, &request->userId);
+    relaySerializeReadUserSessionId(inStream, &request->userSessionId);
     relaySerializeReadChannelId(inStream, &request->channelId);
     return relaySerializeReadRequestId(inStream, &request->requestId);
 }
@@ -35,5 +20,6 @@ int relaySerializeServerInRequestListen(struct FldInStream* inStream,
 {
     relaySerializeReadApplicationId(inStream, &request->appId);
     relaySerializeReadChannelId(inStream, &request->channelId);
+    relaySerializeReadUserSessionId(inStream, &request->userSessionId);
     return relaySerializeReadRequestId(inStream, &request->requestId);
 }

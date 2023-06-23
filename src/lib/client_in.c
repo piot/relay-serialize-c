@@ -6,22 +6,6 @@
 #include <relay-serialize/client_in.h>
 #include <relay-serialize/serialize.h>
 
-int relaySerializeClientInChallenge(FldInStream* inStream, RelaySerializeClientNonce* clientNonce,
-                                    RelaySerializeServerChallenge* serverChallenge)
-{
-    relaySerializeReadClientNonce(inStream, clientNonce);
-
-    return relaySerializeReadServerChallenge(inStream, serverChallenge);
-}
-
-int relaySerializeClientInLogin(struct FldInStream* inStream, RelaySerializeClientNonce* clientNonce,
-                                RelaySerializeUserSessionId* userSessionId)
-{
-    relaySerializeReadClientNonce(inStream, clientNonce);
-
-    return relaySerializeReadUserSessionId(inStream, userSessionId);
-}
-
 int relaySerializeClientInConnectRequestToListener(struct FldInStream* inStream,
                                                    RelaySerializeConnectRequestFromServerToListener* data)
 {

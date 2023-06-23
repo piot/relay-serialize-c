@@ -6,23 +6,24 @@
 #include <relay-serialize/client_out.h>
 #include <relay-serialize/serialize.h>
 
-#define COMMAND_DEBUG "ClientOut"
-
-int relaySerializeClientOutLogin(FldOutStream* stream, RelaySerializeClientNonce clientNonce,
-                                 RelaySerializeServerChallenge challenge, const char* name)
+int relaySerializeClientOutRequestConnect(struct FldOutStream* outStream,
+                                          const RelaySerializeConnectRequestFromClientToServer* request)
 {
-    relaySerializeWriteCommand(stream, relaySerializeCmdLogin, COMMAND_DEBUG);
-    relaySerializeWriteClientNonce(stream, clientNonce);
-    relaySerializeWriteServerChallenge(stream, challenge);
-    relaySerializeWriteString(stream, name);
+    relaySerializeWriteApplicationId(outStream, request->appId);
+    relaySerializeWriteUserSessionId(outStream, request->userSessionId);
+    relaySerializeWriteChannelId(outStream, request->channelId);
+    relaySerializeWriteRequestId(outStream, request->requestId);
 
     return 0;
 }
 
-int relaySerializeClientOutChallenge(FldOutStream* stream, RelaySerializeClientNonce clientNonce)
+int relaySerializeClientOutRequestListen(struct FldOutStream* outStream,
+                                         const RelaySerializeListenRequestFromClientToServer* request)
 {
-    relaySerializeWriteCommand(stream, relaySerializeCmdChallenge, COMMAND_DEBUG);
-    relaySerializeWriteClientNonce(stream, clientNonce);
+    relaySerializeWriteApplicationId(outStream, request->appId);
+    relaySerializeWriteChannelId(outStream, request->channelId);
+    relaySerializeWriteUserSessionId(outStream, request->userSessionId);
+    relaySerializeWriteRequestId(outStream, request->requestId);
 
     return 0;
 }

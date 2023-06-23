@@ -8,26 +8,6 @@
 
 #define DEBUG_PREFIX "ServerOut"
 
-int relaySerializeServerOutChallenge(FldOutStream* outStream, RelaySerializeClientNonce forClient,
-                                     RelaySerializeServerChallenge challenge)
-{
-    relaySerializeWriteCommand(outStream, relaySerializeCmdChallengeResponse, DEBUG_PREFIX);
-    relaySerializeWriteClientNonce(outStream, forClient);
-    relaySerializeWriteServerChallenge(outStream, challenge);
-
-    return 0;
-}
-
-int relaySerializeServerOutLogin(FldOutStream* outStream, RelaySerializeClientNonce forClient,
-                                 RelaySerializeUserSessionId userSessionId)
-{
-    relaySerializeWriteCommand(outStream, relaySerializeCmdLoginResponse, DEBUG_PREFIX);
-    relaySerializeWriteClientNonce(outStream, forClient);
-    relaySerializeWriteUserSessionId(outStream, userSessionId);
-
-    return 0;
-}
-
 int relaySerializeServerOutPacketHeader(FldOutStream* outStream)
 {
     relaySerializeWriteCommand(outStream, relaySerializeCmdPacketToClient, DEBUG_PREFIX);
@@ -66,6 +46,8 @@ int relaySerializeServerOutConnectResponseToInitiator(FldOutStream* outStream,
     relaySerializeWriteCommand(outStream, relaySerializeCmdConnectResponseToClient, DEBUG_PREFIX);
     relaySerializeWriteConnectionId(outStream, data.assignedConnectionId);
     relaySerializeWriteRequestId(outStream, data.requestId);
+
+    return 0;
 }
 
 int relaySerializeServerOutPacketToClientHeader(FldOutStream* outStream,

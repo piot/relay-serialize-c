@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.17)
 project(relay_serialize C)
 
 set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_FLAGS "-std=c99")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   set(isDebug TRUE)
@@ -25,33 +24,10 @@ add_library(relay_serialize STATIC ${lib_src})
 
 target_compile_options(
   relay_serialize
-  PRIVATE -Wall
-          -Wextra
-          -Wshadow
-          -Wstrict-aliasing
-          -ansi
-          -pedantic
-          -Wno-declaration-after-statement
-          -Wno-extra-semi-stmt
-          -Wno-undef
-          -Wno-unused-variable
-          -Wno-unused-parameter
-          -Wno-padded
-          -Werror=implicit-function-declaration
-          -Werror=incompatible-pointer-types
-          -Werror=missing-prototypes
-          -Werror=int-conversion
-          -Werror=return-type
-          -Werror=incompatible-function-pointer-types)
+  PRIVATE -Weverything -Werror -Wno-declaration-after-statement # bug in clang?
+          -Wno-padded)
 
-if(COMPILER_CLANG)
-  target_compile_options(
-    relay_serialize PRIVATE -Wmost -Weverything
-                               -Werror=missing-variable-declarations)
-endif()
-
-target_include_directories(relay_serialize
-                           PUBLIC ${DEPS}piot/clog/src/include)
+target_include_directories(relay_serialize PUBLIC ${DEPS}piot/clog/src/include)
 
 target_include_directories(relay_serialize
                            PUBLIC ${DEPS}piot/tiny-libc/src/include)

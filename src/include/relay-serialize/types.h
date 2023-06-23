@@ -21,7 +21,8 @@ typedef uint8_t RelaySerializeRequestId;
 typedef struct RelaySerializeConnectRequestFromClientToServer {
     RelaySerializeApplicationId appId;
     RelaySerializeChannelId channelId;
-    RelaySerializeUserId userId;
+    RelaySerializeUserSessionId userSessionId;
+    RelaySerializeUserId connectToUserId;
     RelaySerializeRequestId requestId;
 } RelaySerializeConnectRequestFromClientToServer;
 
@@ -34,6 +35,7 @@ typedef struct RelaySerializeListenRequestFromClientToServer {
     RelaySerializeApplicationId appId;
     RelaySerializeChannelId channelId;
     RelaySerializeRequestId requestId;
+    RelaySerializeUserSessionId userSessionId;
 } RelaySerializeListenRequestFromClientToServer;
 
 typedef struct RelaySerializeListenResponseFromServerToListener {

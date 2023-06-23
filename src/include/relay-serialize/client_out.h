@@ -12,8 +12,10 @@
 
 struct FldOutStream;
 
-int relaySerializeClientOutChallenge(struct FldOutStream* stream, RelaySerializeClientNonce clientNonce);
-int relaySerializeClientOutLogin(struct FldOutStream* stream, RelaySerializeClientNonce clientNonce,
-                               RelaySerializeServerChallenge challenge, const char* name);
+int relaySerializeClientOutRequestConnect(struct FldOutStream* outStream,
+                                          const RelaySerializeConnectRequestFromClientToServer* request);
+
+int relaySerializeClientOutRequestListen(struct FldOutStream* outStream,
+                                         const RelaySerializeListenRequestFromClientToServer* request);
 
 #endif

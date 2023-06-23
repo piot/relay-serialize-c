@@ -10,12 +10,8 @@
 const char* relaySerializeCmdToString(uint8_t t)
 {
     switch (t) {
-        case relaySerializeCmdLogin:
-            return "Login";
         case relaySerializeCmdPacket:
             return "Packet";
-        case relaySerializeCmdLoginResponse:
-            return "LoginResponse";
         case relaySerializeCmdPacketToClient:
             return "PacketToClient";
         default: {

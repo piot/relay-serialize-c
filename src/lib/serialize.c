@@ -9,6 +9,7 @@
 
 void relaySerializeWriteCommand(struct FldOutStream* outStream, uint8_t cmd, const char* prefix)
 {
+    (void) prefix;
     // CLOG_VERBOSE("%s: cmd: %s", prefix, relaySerializeCmdToString(cmd));
     fldOutStreamWriteUInt8(outStream, cmd);
 }
@@ -144,7 +145,7 @@ int relaySerializeReadServerChallenge(struct FldInStream* stream, RelaySerialize
 int relaySerializeWriteString(FldOutStream* stream, const char* s)
 {
     size_t len = tc_strlen(s);
-    fldOutStreamWriteUInt8(stream, len);
+    fldOutStreamWriteUInt8(stream, (uint8_t )len);
     return fldOutStreamWriteOctets(stream, (const uint8_t*) s, len);
 }
 
