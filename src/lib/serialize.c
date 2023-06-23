@@ -17,7 +17,7 @@ void relaySerializeWriteCommand(struct FldOutStream* outStream, uint8_t cmd, con
 void relaySerializeWriteUserSessionId(struct FldOutStream* stream, RelaySerializeUserSessionId userSessionId)
 {
     if (userSessionId == 0) {
-        CLOG_ERROR("userSessionId zero is reserved");
+        CLOG_ERROR("userSessionId zero is reserved")
     }
     fldOutStreamWriteMarker(stream, 0x86);
     fldOutStreamWriteUInt64(stream, userSessionId);
@@ -32,7 +32,7 @@ int relaySerializeReadUserSessionId(struct FldInStream* stream, RelaySerializeUs
 void relaySerializeWriteUserId(struct FldOutStream* stream, RelaySerializeUserId userId)
 {
     if (userId == 0) {
-        CLOG_ERROR("userId zero is reserved");
+        CLOG_ERROR("userId zero is reserved")
     }
     fldOutStreamWriteMarker(stream, 0x89);
     fldOutStreamWriteUInt64(stream, userId);
@@ -47,7 +47,7 @@ int relaySerializeReadUserId(struct FldInStream* stream, RelaySerializeUserId* u
 void relaySerializeWriteConnectionId(struct FldOutStream* stream, RelaySerializeConnectionId connectionId)
 {
     if (connectionId == 0) {
-        CLOG_ERROR("userId zero is reserved");
+        CLOG_ERROR("userId zero is reserved")
     }
     fldOutStreamWriteMarker(stream, 0x90);
     fldOutStreamWriteUInt64(stream, connectionId);
@@ -62,7 +62,7 @@ int relaySerializeReadConnectionId(struct FldInStream* stream, RelaySerializeCon
 void relaySerializeWriteListenerId(struct FldOutStream* stream, RelaySerializeListenerId listenerId)
 {
     if (listenerId == 0) {
-        CLOG_ERROR("listenerId zero is reserved");
+        CLOG_ERROR("listenerId zero is reserved")
     }
     fldOutStreamWriteMarker(stream, 0x91);
     fldOutStreamWriteUInt64(stream, listenerId);
@@ -77,7 +77,7 @@ int relaySerializeReadListenerId(struct FldInStream* stream, RelaySerializeListe
 void relaySerializeWriteApplicationId(struct FldOutStream* stream, RelaySerializeApplicationId applicationId)
 {
     if (applicationId == 0) {
-        CLOG_ERROR("listenerId zero is reserved");
+        CLOG_ERROR("listenerId zero is reserved")
     }
     fldOutStreamWriteMarker(stream, 0x92);
     fldOutStreamWriteUInt64(stream, applicationId);
@@ -92,7 +92,7 @@ int relaySerializeReadApplicationId(struct FldInStream* stream, RelaySerializeAp
 void relaySerializeWriteChannelId(struct FldOutStream* stream, RelaySerializeChannelId channelId)
 {
     if (channelId == 0) {
-        CLOG_ERROR("listenerId zero is reserved");
+        CLOG_ERROR("listenerId zero is reserved")
     }
     fldOutStreamWriteMarker(stream, 0x93);
     fldOutStreamWriteUInt16(stream, channelId);
@@ -106,7 +106,7 @@ int relaySerializeReadChannelId(struct FldInStream* stream, RelaySerializeChanne
 void relaySerializeWriteRequestId(struct FldOutStream* stream, RelaySerializeRequestId requestId)
 {
     if (requestId == 0) {
-        CLOG_ERROR("listenerId zero is reserved");
+        CLOG_ERROR("listenerId zero is reserved")
     }
     fldOutStreamWriteMarker(stream, 0x94);
     fldOutStreamWriteUInt8(stream, requestId);
