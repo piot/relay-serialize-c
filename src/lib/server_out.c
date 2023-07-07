@@ -8,20 +8,12 @@
 
 #define DEBUG_PREFIX "ServerOut"
 
-int relaySerializeServerOutPacketHeader(FldOutStream* outStream)
-{
-    relaySerializeWriteCommand(outStream, relaySerializeCmdPacketToClient, DEBUG_PREFIX);
-
-    return 0;
-}
-
 int relaySerializeServerOutConnectRequestToListener(FldOutStream* outStream,
                                                     RelaySerializeConnectRequestFromServerToListener data)
 {
     relaySerializeWriteCommand(outStream, relaySerializeCmdConnectionRequestToClient, DEBUG_PREFIX);
-    relaySerializeWriteConnectionId(outStream, data.assignedConnectionId);
-    relaySerializeWriteApplicationId(outStream, data.appId);
-    relaySerializeWriteChannelId(outStream, data.channelId);
+    relaySerializeWriteListenerId(outStream, data.listenerId);
+    relaySerializeWriteConnectionId(outStream, data.connectionId);
     relaySerializeWriteUserId(outStream, data.fromUserId);
     relaySerializeWriteRequestId(outStream, data.debugRequestId);
 
@@ -53,6 +45,7 @@ int relaySerializeServerOutConnectResponseToInitiator(FldOutStream* outStream,
 int relaySerializeServerOutPacketToClientHeader(FldOutStream* outStream,
                                                 RelaySerializeServerPacketFromServerToClient data)
 {
+    relaySerializeWriteCommand(outStream, relaySerializeCmdPacketToClient, DEBUG_PREFIX);
     relaySerializeWriteConnectionId(outStream, data.connectionId);
     return fldOutStreamWriteUInt16(outStream, data.packetOctetCount);
 }

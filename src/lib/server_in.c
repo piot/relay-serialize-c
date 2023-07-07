@@ -10,7 +10,6 @@ int relaySerializeServerInRequestConnect(struct FldInStream* inStream,
                                          RelaySerializeConnectRequestFromClientToServer* request)
 {
     relaySerializeReadApplicationId(inStream, &request->appId);
-    relaySerializeReadUserSessionId(inStream, &request->userSessionId);
     relaySerializeReadChannelId(inStream, &request->channelId);
     return relaySerializeReadRequestId(inStream, &request->requestId);
 }
@@ -20,6 +19,5 @@ int relaySerializeServerInRequestListen(struct FldInStream* inStream,
 {
     relaySerializeReadApplicationId(inStream, &request->appId);
     relaySerializeReadChannelId(inStream, &request->channelId);
-    relaySerializeReadUserSessionId(inStream, &request->userSessionId);
     return relaySerializeReadRequestId(inStream, &request->requestId);
 }

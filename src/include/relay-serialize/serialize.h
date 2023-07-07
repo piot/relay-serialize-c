@@ -36,13 +36,4 @@ int relaySerializeReadChannelId(struct FldInStream* stream, RelaySerializeChanne
 void relaySerializeWriteRequestId(struct FldOutStream* stream, RelaySerializeRequestId requestId);
 int relaySerializeReadRequestId(struct FldInStream* stream, RelaySerializeRequestId* requestId);
 
-void relaySerializeWriteClientNonce(struct FldOutStream* outStream, RelaySerializeClientNonce clientNonce);
-int relaySerializeReadClientNonce(struct FldInStream* stream, RelaySerializeClientNonce* clientNonce);
-
-void relaySerializeWriteServerChallenge(struct FldOutStream* outStream, RelaySerializeServerChallenge serverChallenge);
-int relaySerializeReadServerChallenge(struct FldInStream* stream, RelaySerializeServerChallenge* serverChallenge);
-
-int relaySerializeWriteString(struct FldOutStream* stream, const char* s);
-int relaySerializeReadString(struct FldInStream* stream, char* buf, size_t maxLength);
-
 #endif

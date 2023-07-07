@@ -12,16 +12,14 @@
 
 struct FldInStream;
 
-int relaySerializeClientInChallenge(struct FldInStream* inStream, RelaySerializeClientNonce* clientNonce,
-                                  RelaySerializeServerChallenge* serverChallenge);
-int relaySerializeClientInLogin(struct FldInStream* inStream, RelaySerializeClientNonce* clientNonce,
-                              RelaySerializeUserSessionId* userSessionId);
-
-
 int relaySerializeClientInConnectRequestToListener(struct FldInStream* inStream,
-                                                      RelaySerializeConnectRequestFromServerToListener* data);
-
+                                                   RelaySerializeConnectRequestFromServerToListener* data);
 int relaySerializeClientInPacketFromServer(struct FldInStream* inStream,
-                                                      RelaySerializeServerPacketFromServerToClient* data);
+                                           RelaySerializeServerPacketFromServerToClient* data);
+int relaySerializeClientInListenResponse(struct FldInStream* inStream,
+                                         RelaySerializeListenResponseFromServerToListener* data);
+int relaySerializeClientInConnectResponse(struct FldInStream* inStream,
+                                          RelaySerializeConnectResponseFromServerToClient* data);
+int relaySerializeClientInPacketHeader(struct FldInStream* inStream, RelaySerializeServerPacketFromServerToClient* data);
 
 #endif

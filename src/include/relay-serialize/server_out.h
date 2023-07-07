@@ -11,11 +11,6 @@
 
 struct FldOutStream;
 
-int relaySerializeServerOutChallenge(struct FldOutStream* outStream, RelaySerializeClientNonce forClient,
-                                     RelaySerializeServerChallenge challenge);
-int relaySerializeServerOutLogin(struct FldOutStream* outStream, RelaySerializeClientNonce forClient,
-                                 RelaySerializeUserSessionId userSession);
-
 int relaySerializeServerOutPacketHeader(struct FldOutStream* outStream);
 
 int relaySerializeServerOutConnectRequestToListener(struct FldOutStream* outStream,

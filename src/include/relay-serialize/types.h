@@ -11,8 +11,6 @@
 typedef uint64_t RelaySerializeUserSessionId;
 typedef uint64_t RelaySerializeUserId;
 typedef uint64_t RelaySerializeApplicationId;
-typedef uint64_t RelaySerializeClientNonce;
-typedef uint64_t RelaySerializeServerChallenge;
 typedef uint64_t RelaySerializeListenerId;
 typedef uint64_t RelaySerializeConnectionId;
 typedef uint16_t RelaySerializeChannelId;
@@ -21,7 +19,6 @@ typedef uint8_t RelaySerializeRequestId;
 typedef struct RelaySerializeConnectRequestFromClientToServer {
     RelaySerializeApplicationId appId;
     RelaySerializeChannelId channelId;
-    RelaySerializeUserSessionId userSessionId;
     RelaySerializeUserId connectToUserId;
     RelaySerializeRequestId requestId;
 } RelaySerializeConnectRequestFromClientToServer;
@@ -35,7 +32,6 @@ typedef struct RelaySerializeListenRequestFromClientToServer {
     RelaySerializeApplicationId appId;
     RelaySerializeChannelId channelId;
     RelaySerializeRequestId requestId;
-    RelaySerializeUserSessionId userSessionId;
 } RelaySerializeListenRequestFromClientToServer;
 
 typedef struct RelaySerializeListenResponseFromServerToListener {
@@ -46,10 +42,9 @@ typedef struct RelaySerializeListenResponseFromServerToListener {
 } RelaySerializeListenResponseFromServerToListener;
 
 typedef struct RelaySerializeConnectRequestFromServerToListener {
-    RelaySerializeConnectionId assignedConnectionId;
-    RelaySerializeApplicationId appId;
+    RelaySerializeListenerId listenerId;
+    RelaySerializeConnectionId connectionId;
     RelaySerializeUserId fromUserId;
-    RelaySerializeChannelId channelId;
     RelaySerializeRequestId debugRequestId;
 } RelaySerializeConnectRequestFromServerToListener;
 
@@ -57,5 +52,10 @@ typedef struct RelaySerializeServerPacketFromServerToClient {
     RelaySerializeConnectionId connectionId;
     uint16_t packetOctetCount;
 } RelaySerializeServerPacketFromServerToClient;
+
+typedef struct RelaySerializeServerPacketFromClientToServer {
+    RelaySerializeConnectionId connectionId;
+    uint16_t packetOctetCount;
+} RelaySerializeServerPacketFromClientToServer;
 
 #endif

@@ -12,10 +12,14 @@
 
 struct FldOutStream;
 
-int relaySerializeClientOutRequestConnect(struct FldOutStream* outStream,
+int relaySerializeClientOutRequestConnect(struct FldOutStream* outStream, RelaySerializeUserSessionId userSessionId,
                                           const RelaySerializeConnectRequestFromClientToServer* request);
 
-int relaySerializeClientOutRequestListen(struct FldOutStream* outStream,
+int relaySerializeClientOutRequestListen(struct FldOutStream* outStream, RelaySerializeUserSessionId userSessionId,
                                          const RelaySerializeListenRequestFromClientToServer* request);
+
+int relaySerializeClientOutPacketToServerHeader(struct FldOutStream* outStream,
+                                                RelaySerializeUserSessionId userSessionId,
+                                                RelaySerializeServerPacketFromClientToServer data);
 
 #endif

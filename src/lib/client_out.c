@@ -6,24 +6,37 @@
 #include <relay-serialize/client_out.h>
 #include <relay-serialize/serialize.h>
 
-int relaySerializeClientOutRequestConnect(struct FldOutStream* outStream,
+#define DEBUG_PREFIX "ClientOut"
+
+int relaySerializeClientOutRequestConnect(struct FldOutStream* outStream, RelaySerializeUserSessionId userSessionId,
                                           const RelaySerializeConnectRequestFromClientToServer* request)
 {
+    relaySerializeWriteCommand(outStream, relaySerializeCmdConnectRequestToServer, DEBUG_PREFIX);
+    relaySerializeWriteUserSessionId(outStream, userSessionId);
     relaySerializeWriteApplicationId(outStream, request->appId);
-    relaySerializeWriteUserSessionId(outStream, request->userSessionId);
     relaySerializeWriteChannelId(outStream, request->channelId);
     relaySerializeWriteRequestId(outStream, request->requestId);
 
     return 0;
 }
 
-int relaySerializeClientOutRequestListen(struct FldOutStream* outStream,
+int relaySerializeClientOutRequestListen(struct FldOutStream* outStream, RelaySerializeUserSessionId userSessionId,
                                          const RelaySerializeListenRequestFromClientToServer* request)
 {
+    relaySerializeWriteCommand(outStream, relaySerializeCmdListenRequestToServer, DEBUG_PREFIX);
+    relaySerializeWriteUserSessionId(outStream, userSessionId);
     relaySerializeWriteApplicationId(outStream, request->appId);
     relaySerializeWriteChannelId(outStream, request->channelId);
-    relaySerializeWriteUserSessionId(outStream, request->userSessionId);
     relaySerializeWriteRequestId(outStream, request->requestId);
 
     return 0;
+}
+
+int relaySerializeClientOutPacketToServerHeader(FldOutStream* outStream,  RelaySerializeUserSessionId userSessionId,
+                                                RelaySerializeServerPacketFromClientToServer data)
+{
+    relaySerializeWriteCommand(outStream, relaySerializeCmdPacket, DEBUG_PREFIX);
+    relaySerializeWriteUserSessionId(outStream, userSessionId);
+    relaySerializeWriteConnectionId(outStream, data.connectionId);
+    return fldOutStreamWriteUInt16(outStream, data.packetOctetCount);
 }
