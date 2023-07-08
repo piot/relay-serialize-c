@@ -13,6 +13,7 @@ int relaySerializeClientOutRequestConnect(struct FldOutStream* outStream, RelayS
 {
     relaySerializeWriteCommand(outStream, relaySerializeCmdConnectRequestToServer, DEBUG_PREFIX);
     relaySerializeWriteUserSessionId(outStream, userSessionId);
+    relaySerializeWriteUserId(outStream, request->connectToUserId);
     relaySerializeWriteApplicationId(outStream, request->appId);
     relaySerializeWriteChannelId(outStream, request->channelId);
     relaySerializeWriteRequestId(outStream, request->requestId);

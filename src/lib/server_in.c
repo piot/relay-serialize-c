@@ -9,6 +9,7 @@
 int relaySerializeServerInRequestConnect(struct FldInStream* inStream,
                                          RelaySerializeConnectRequestFromClientToServer* request)
 {
+    relaySerializeReadUserId(inStream, &request->connectToUserId);
     relaySerializeReadApplicationId(inStream, &request->appId);
     relaySerializeReadChannelId(inStream, &request->channelId);
     return relaySerializeReadRequestId(inStream, &request->requestId);

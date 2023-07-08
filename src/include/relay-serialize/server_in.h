@@ -21,7 +21,4 @@ int relaySerializeServerInRequestListen(struct FldInStream* inStream,
 int relaySerializeServerInRequestAccept(struct FldInStream* inStream,
                                         RelaySerializeListenRequestFromClientToServer* request);
 
-
-
-
 #endif
