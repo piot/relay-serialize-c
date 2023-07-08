@@ -140,7 +140,7 @@ Sent by the server to the initiator client, in response of a <<Connect Request>>
 
 Sent from server to listener client. The listener approves the connectionID by sending a packet on that connection.
 
-[.small]#TODO: Should implement a close connection request from the listener. Needed to minimize packets sent to listener from server for a rejected/closed connection.#
+NOTE: TODO: Should implement a close connection request from the listener. Needed to minimize packets sent to listener from server for a rejected/closed connection.
 
 [cols="1,1,2"]
 |===
