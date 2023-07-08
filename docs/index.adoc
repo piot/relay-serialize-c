@@ -1,9 +1,16 @@
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
 Relay Protocol
 
 Copyright (C) 2022 Peter Bjorklund. All rights reserved.
 
 == Relay Protocol
-:icons: font
 
 CAUTION: Relay protocol only to be used for internal testing. Not secure enough for production use.
 
