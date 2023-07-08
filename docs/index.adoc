@@ -1,0 +1,217 @@
+Relay Protocol
+
+Copyright (C) 2022 Peter Bjorklund. All rights reserved.
+
+== Relay Protocol
+:icons: font
+
+CAUTION: Relay protocol only to be used for internal testing. Not secure enough for production use.
+
+
+=== Listen Request
+
+Sent by the client to the server, notifying the relay server that the client wants to listen for incoming connections.
+
+[cols="1,1,2"]
+|===
+|Type | Name | Description
+
+|U8
+|Command
+|`relaySerializeCmdListenRequestToServer` (0x07)
+
+|U64
+|Guise User SessionID
+|Session ID Acquired previously by a Guise server.
+
+
+|U64
+|ApplicationID
+|ApplicationID that the listener is running
+
+|U16
+|ChannelID
+|Which channel the listener is listening to. Usually zero.
+
+|U8
+|RequestID
+|The request ID (any number assigned by the client)
+
+|===
+
+=== Listen Response
+
+Sent by the server to the client, in response to the <<Listen Request>>
+
+[cols="1,1,2"]
+|===
+|Type | Name | Description
+
+|U8
+|Command
+|`relaySerializeCmdListenResponseToClient` (0x26)
+
+|U64
+|ListenerID
+|Assigned listener ID
+
+|U64
+|ApplicationID
+|ApplicationID that the listener is running
+
+|U16
+|ChannelID
+|The channel the listener wants to listen to. Usually zero.
+
+|U8
+|RequestID
+|The request ID (any number assigned by the client)
+
+|===
+
+
+=== Connect Request
+
+Sent by the client to the server
+
+
+[cols="1,1,2"]
+|===
+|Type | Name | Description
+
+|U8
+|Command
+|`relaySerializeCmdConnectRequestToServer` (0x06)
+
+|U64
+|Guise User SessionID
+|The Initiators User Session ID (Acquired previously from a Guise server).
+
+|U64
+|Guise UserID
+|Guise User ID that the initiator wants to connect to
+
+|U64
+|ApplicationID
+|The application ID for the listener the initiator wants to connect to.
+
+|U16
+|ChannelID
+|The channelID of the listener that the initator wants to connect to.
+
+|U8
+|RequestID
+|The request ID (any number assigned by the client)
+
+|===
+
+
+=== Connect Response
+
+Sent by the server to the initiator client, in response of a <<Connect Request>>
+
+[cols="1,1,2"]
+|===
+|Type | Name | Description
+
+|U8
+|Command
+|`relaySerializeCmdConnectResponseToClient` (0x27)
+
+|U64
+|ConnectionID
+|The assigned connectionID.
+
+|U8
+|RequestID
+|The request ID (any number assigned by the client)
+
+|===
+
+
+=== Connection Request to Listener
+
+Sent from server to listener client. The listener approves the connectionID by sending a packet on that connection.
+
+[.small]#TODO: Should implement a close connection request from the listener. Needed to minimize packets sent to listener from server for a rejected/closed connection.#
+
+[cols="1,1,2"]
+|===
+|Type | Name | Description
+
+|U8
+|Command
+|`relaySerializeCmdConnectionRequestToClient` (0x25)
+
+|U64
+|ListenerID
+|The target listener
+
+|U64
+|ConnectionID
+|The assigned connectionID for the initiator.
+
+|U64
+|UserID
+|The userID of the initiator
+
+|U8
+|RequestID
+|The request ID (any number assigned by the client)
+
+|===
+
+
+=== Send Datagram
+
+Sent datagram from client to another client (via the relay server)
+
+
+[cols="1,1,2"]
+|===
+|Type | Name | Description
+
+|U8
+|Command
+|`relaySerializeCmdPacket` (0x05)
+
+|U64
+|Guise User Session ID
+|The user session ID of the sender.
+
+|U64
+|Connection ID
+|The previously assigned ConnectionID from <<Connect Response>>
+
+|U16
+|Datagram octet count
+|The number of octets following (maximum 1150).
+
+|===
+
+
+=== Receive Datagram
+
+Sent by the relay server to a client
+
+[cols="1,1,2"]
+|===
+|Type | Name | Description
+
+|U8
+|Command
+|`relaySerializeCmdPacketToClient` (0x24)
+
+|U64
+|ConnectionID
+|ConnectionID previosly acquired from <<Connect Response>> or <<Connection Request to Listener>>.
+
+|U16
+|Datagram octet count
+|The number of octets following. Maximum 1150.
+
+|U8 * [Datagram octet count]
+|Datagram payload
+|The datagram payload.
+
+|===
