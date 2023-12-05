@@ -6,13 +6,14 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
+:icons: font
 Relay Protocol
 
 Copyright (C) 2022 Peter Bjorklund. All rights reserved.
 
 == Relay Protocol
 
-CAUTION: Relay protocol only to be used for internal testing. Not secure enough for production use.
+WARNING: Relay protocol only to be used for internal testing. Not secure enough for production use.
 
 
 === Listen Request
@@ -38,7 +39,7 @@ Sent by the client to the server, notifying the relay server that the client wan
 
 |U16
 |ChannelID
-|Which channel the listener is listening to. Usually zero.
+|Which channel the listener is listening to. This is used to allow multiple listeners on one device. Usually zero.
 
 |U8
 |RequestID
@@ -64,15 +65,15 @@ Sent by the server to the client, in response to the <<Listen Request>>
 
 |U64
 |ApplicationID
-|ApplicationID that the listener is running
+|ApplicationID that the listener is running. Only for extra verification.
 
 |U16
 |ChannelID
-|The channel the listener wants to listen to. Usually zero.
+|The channel the listener wants to listen to. Usually zero. Only for extra verification.
 
 |U8
 |RequestID
-|The request ID (any number assigned by the client)
+|The request ID (any number assigned by the client in the <<Listen Request>>)
 
 |===
 
@@ -104,7 +105,7 @@ Sent by the client to the server
 
 |U16
 |ChannelID
-|The channelID of the listener that the initator wants to connect to.
+|The channelID of the listener that the initator wants to connect to. In many cases zero.
 
 |U8
 |RequestID
@@ -127,7 +128,7 @@ Sent by the server to the initiator client, in response of a <<Connect Request>>
 
 |U64
 |ConnectionID
-|The assigned connectionID.
+|The assigned connectionID by the relay server.
 
 |U8
 |RequestID
@@ -140,7 +141,7 @@ Sent by the server to the initiator client, in response of a <<Connect Request>>
 
 Sent from server to listener client. The listener approves the connectionID by sending a packet on that connection.
 
-NOTE: TODO: Should implement a close connection request from the listener. Needed to minimize packets sent to listener from server for a rejected/closed connection.
+NOTE: TODO: Should implement a close connection request from the listener. This is needed to minimize unnecessary packets sent to listener from the server for a rejected/closed connection.
 
 [cols="1,1,2"]
 |===
@@ -156,7 +157,7 @@ NOTE: TODO: Should implement a close connection request from the listener. Neede
 
 |U64
 |ConnectionID
-|The assigned connectionID for the initiator.
+|The assigned connectionID by the relay server for the initiator to/from the specified listener.
 
 |U64
 |UserID
@@ -164,14 +165,14 @@ NOTE: TODO: Should implement a close connection request from the listener. Neede
 
 |U8
 |RequestID
-|The request ID (any number assigned by the client)
+|The request ID (any number assigned by the client). Mostly used for debugging.
 
 |===
 
 
 === Send Datagram
 
-Sent datagram from client to another client (via the relay server)
+Sent datagram from a client to another client (via the relay server)
 
 
 [cols="1,1,2"]
@@ -188,11 +189,15 @@ Sent datagram from client to another client (via the relay server)
 
 |U64
 |Connection ID
-|The previously assigned ConnectionID from <<Connect Response>>
+|The previously assigned ConnectionID from <<Connect Response>> or <<Connection Request to Listener>>.
 
 |U16
 |Datagram octet count
 |The number of octets following (maximum 1150).
+
+|U8 * [Datagram octet count]
+|Payload
+|The application specific datagram payload
 
 |===
 
